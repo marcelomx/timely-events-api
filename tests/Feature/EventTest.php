@@ -16,7 +16,7 @@ class EventTest extends TestCase
 
     protected $seed = true;
 
-    public function testGetAll()
+    public function test_should_get_events_from_api()
     {
         $response = $this->get(static::END_POINT);
 
@@ -25,7 +25,7 @@ class EventTest extends TestCase
             ->assertJsonCount(15, 'data');
     }
 
-    protected function testInvalidOnCreate()
+    protected function test_should_invalidate_create_request()
     {
         $response = $this->postJson(static::END_POINT, []);
 
@@ -38,7 +38,7 @@ class EventTest extends TestCase
             ]);
     }
 
-    public function testCreateEndDateGreatThanStartDate()
+    public function test_should_invalidate_if_end_date_is_not_greather_than_start_date()
     {
         $data = Event::factory()->make()->toArray();
         $data['end_date_time'] = $data['start_date_time'];
@@ -51,7 +51,7 @@ class EventTest extends TestCase
             ]);
     }
 
-    public function testCreateInvalidOrganizers()
+    public function test_should_invalidate_if_organizers_contains_an_invalid_entry()
     {
         $data = Event::factory()->make()->toArray();
         $data['organizers'] = ['invalidemail'];
@@ -64,7 +64,7 @@ class EventTest extends TestCase
             ]);
     }
 
-    public function testCreate()
+    public function test_should_register_a_new_event()
     {
         $data = Event::factory()->make()->toArray();
 
@@ -76,7 +76,7 @@ class EventTest extends TestCase
             ->assertJsonPath('data.id', (int) Event::max('id'));
     }
 
-    public function testGet()
+    public function test_should_get_an_registered_event()
     {
         $event = Event::find(1);
 
@@ -89,7 +89,7 @@ class EventTest extends TestCase
             ]);
     }
 
-    public function testUpdate()
+    public function test_should_update_an_registered_event()
     {
         $event = Event::find(1);
         $data = $event->toArray();
@@ -104,7 +104,7 @@ class EventTest extends TestCase
             ->assertJsonStructure(array_keys($data), $data);
     }
 
-    public function testDelete()
+    public function test_should_delete_an_registered_event()
     {
         $event = Event::find(1);
 
