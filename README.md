@@ -11,7 +11,7 @@ Timely events API
 ### Running
 
 1. Install Composer dependencies `composer install`
-2. Create the database en configure database credentials on `.env`
+2. Create the database and configure database credentials on `.env' file
 3. Run migrations `php artisan migrate`
 4. Run database seeds `php artisan db:seed`
 5. Run Laravel server `php artisan serve`
