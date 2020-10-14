@@ -51,6 +51,19 @@ class EventTest extends TestCase
             ]);
     }
 
+    public function testCreateInvalidOrganizers()
+    {
+        $data = Event::factory()->make()->toArray();
+        $data['organizers'] = ['invalidemail'];
+
+        $response = $this->postJson(static::END_POINT, $data);
+        $response
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'organizers' => "The organizer 'invalidemail' is not valid e-mail."
+            ]);
+    }
+
     public function testCreate()
     {
         $data = Event::factory()->make()->toArray();
@@ -82,6 +95,7 @@ class EventTest extends TestCase
         $data = $event->toArray();
         $data['title'] = $this->faker->text(255);
         $data['description'] = $this->faker->text();
+        $data['organizers'] = [$this->faker->email]; // reseting emails
 
         $response = $this->postJson(static::END_POINT . '/' . $event->id, $data);
 

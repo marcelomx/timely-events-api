@@ -16,10 +16,12 @@ class Event extends Model
         'description',
         'start_date_time',
         'end_date_time',
+        'organizers'
     ];
 
     protected $casts = [
         'start_date_time' => 'datetime:' . DATE_RFC3339,
-        'end_date_time'   => 'datetime:' . DATE_RFC3339
+        'end_date_time'   => 'datetime:' . DATE_RFC3339,
+        'organizers'      => 'json'
     ];
 }
