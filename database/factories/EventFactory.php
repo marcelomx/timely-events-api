@@ -27,7 +27,7 @@ class EventFactory extends Factory
         return [
             'title' => $this->faker->realText(100),
             'description' => $this->faker->text(),
-            'start_date_time' => $startDateTime = $this->faker->future(),
+            'start_date_time' => $startDateTime = $this->faker->date(),
             'end_date_time' => Carbon::create($startDateTime)->addDay(),
             'organizers' => Collection::times(
                 rand(1, 5),
